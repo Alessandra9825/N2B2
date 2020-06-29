@@ -1,0 +1,31 @@
+﻿@model List<ProdutoViewModel>
+
+<h1>Produtos</h1>
+
+@{ 
+    int contador = 0;
+
+    <div class="container-cards">
+        @foreach (var produto in Model)
+            {
+            @if (contador < 5)
+                {
+                <div class="container-cards-items">
+                    <img src="data:image/jpeg;base64,@produto.ImagemEmBase64">
+                    <h5>@produto.nome </h5>
+                    <h5>R$ @produto.valor</h5><br />
+                    <input id="botao" type="submit" value="Comprar" />
+                </div>
+                    contador++; 
+                }
+
+            else
+            {
+                <br />
+                contador = 0; 
+                
+            }
+         }
+    </div>
+
+}

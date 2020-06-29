@@ -1,0 +1,27 @@
+﻿@model List<EletroStar.Models.Principais.ProjetoViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/css/listagem.css">
+
+<div id="pesquisar">
+    <form >
+        <label for="nome">Consultar Projeto</label>
+        <input type="text" Name="nome" id="nome" class="form-control" />
+        <input id="botao" type="button" value="Pesquisar" onclick="atualizaGridProjeto()"/>
+    </form>
+</div>
+
+<div id="conteudoGrid">
+    @{Html.RenderPartial("pvProjeto", Model);}
+</div>
+
+<script>
+    function apagarProjeto(id) {
+        if (confirm('Deseja realizar a exclusão do Projeto?'))
+            location.href = 'Produto/Delete?id=' + id;
+    }
+</script>

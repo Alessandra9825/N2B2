@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EletroStar</title>
+    <link rel="stylesheet" href="~/css/estilo.css">
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+   
+
+
+</head>
+<body>
+
+    <div class="inicio"><h1 id="titulo">EletroStars</h1></div>
+    <input type="checkbox" id="chec">
+    <label for="chec" id="icMenu">
+        <img id="icon" src="~/imagem/menu2.png" >
+    </label>
+
+    <label id="login">
+        <a href="https://accounts.google.com/signin/v2/identifier?hl=pt-BR&passive=true&continue=https%3A%2F%2Fwww.google.com%2Fwebhp%3Fhl%3Dpt-BR%26sa%3DX%26ved%3D0ahUKEwj5t5XCze7pAhVrH7kGHayMC50QPAgH&flowName=GlifWebSignIn&flowEntry=ServiceLogin">
+        <img  src="~/imagem/login1.png" id="login"></a>
+    </label>
+
+    <div id="texto">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <nav id="menu">
+        <ul>
+            <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li>
+                <a>Produtos</a>
+                <ul>
+                    <li><a asp-area="" asp-controller="Produto" asp-action="Create">Novo</a></li>
+                    <li><a asp-area="" asp-controller="Produto" asp-action="Index">Consulta</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a>Projeto</a>
+                <ul>
+                    <li><a asp-area="" asp-controller="Projeto" asp-action="Create">Novo</a></li>
+                    <li><a asp-area="" asp-controller="Projeto" asp-action="Index">Consulta</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a>Cliente</a>
+                <ul>
+                    <li><a asp-area="" asp-controller="Cliente" asp-action="Create">Novo</a></li>
+                    <li><a asp-area="" asp-controller="Cliente" asp-action="Index">Catalogo</a></li>
+                </ul>
+            </li>
+
+            <li><a asp-area="" asp-controller="Vendas" asp-action="Index">Vendas</a></li>
+            <li><a asp-area="" asp-controller="Sobre" asp-action="Index">Sobre</a></li>
+        </ul>
+    </nav>
+
+
+    <footer>
+        <div id="logotipo">
+            <img id="lgt" src="~/imagem/chave.png" alt=" logotipo" />
+            Todos os direitos autorais reservados.
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
