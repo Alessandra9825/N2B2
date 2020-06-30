@@ -1,0 +1,78 @@
+﻿@model ProdutoViewModel
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/form.css">
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="Salvar" method="post" enctype="multipart/form-data">
+            <div class="formulario">
+                <input type="hidden" Name="operacao" value="@ViewBag.operacao" />
+                <h2 style="text-align:left; padding-left:65px; padding-bottom:10px;">Cadastrar Produto</h2><br />
+
+                @if (ViewBag.operacao == "I")
+                {
+                    <input type="hidden" Name="id" value="@Model.id" class="form-control" />
+                }
+                else
+                {
+                    <label for="id" class="control-label">Id</label>
+                    <input type="number" Name="id" value="@Model.id" class="form-control" readonly />
+                    <span asp-validation-for="id" class="text-danger"></span>
+                    <br />
+                }
+
+                <label for="nome" class="control-label">Nome:</label>
+                <input type="text" Name="Nome" value="@Model.nome" class="form-control" />
+                <span asp-validation-for="nome" class="text-danger"></span>
+                <br />
+
+                <label for="descricao" class="control-label">Descrição:</label>
+                <input type="text" Name="descricao" value="@Model.descricao" class="form-control" />
+                <span asp-validation-for="descricao" class="text-danger"></span>
+                <br />
+
+                <label for="id_Categoriass" class="control-label">Categorias</label><br />
+                <select id="comboBox" asp-for="id_Categoria" asp-items="ViewBag.categorias" class="form-control"> </select><br />
+                <span asp-validation-for="id_Categoria" class="text-danger"></span><br />
+                <br />
+
+                <label for="id_Fabricante" class="control-label">Fabricantes</label><br />
+                <select id="comboBox" asp-for="id_Fabricante" asp-items="ViewBag.fabricantes" class="form-control"> </select><br />
+                <span asp-validation-for="id_Fabricante" class="text-danger"></span><br />
+                <br />
+
+                <label for="valor" class="control-label">Preço Unitário:</label><br />
+                <input type="text" Name="valor" value="@Model.valor" class="form-control" />
+                <span asp-validation-for="valor" class="text-danger"></span>
+                <br />
+
+                <img id="uploadIm" src="data:image/jpeg;base64, @Model.ImagemEmBase64" class="img-responsive">
+                <input id="botaoEs" type="file" name="Imagem" onchange="exibirImagem()" class="btn btn-secondary">
+                <span asp-validation-for="Imagem" class="text-danger"></span><br />
+
+
+                <input id="botao" type="submit" value="Salvar dados" />
+
+                <span class="text-danger">@ViewBag.Erro</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/site.js"></script>
+<script>
+
+    function exibirImagem() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("botaoEs").files[0]);
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadIm").src = oFREvent.target.result;
+        };
+    }
+</script>
+
+

@@ -1,0 +1,121 @@
+﻿@model ClienteViewModel
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/form.css">
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="Salvar" method="post" enctype="multipart/form-data">
+            <div class="formulario">
+                <input type="hidden" Name="operacao" value="@ViewBag.operacao" />
+
+                @if (ViewBag.operacao == "I")
+                {
+                    <h2 style="text-align:left; padding-left:150px; padding-bottom:10px;">Login</h2><br />
+
+                    <label for="email" class="control-label">E-mail</label>
+                    <input type="email" Name="email" value="@Model.email" class="form-control" />
+                    <span asp-validation-for="email" class="text-danger"></span>
+                    <br />
+
+                    <label for="email" class="control-label">Confirmação de E-mail</label>
+                    <input type="text" Name="confemail" value="@ViewBag.confemail" class="form-control" />
+                    <br />
+
+                    <label for="senha" class="control-label">Senha</label>
+                    <input type="password" Name="senha" value="@Model.senha" class="form-control" />
+                    <span asp-validation-for="senha" class="text-danger"></span>
+                    <br />
+
+                    <label for="senha" class="control-label">Confirmação de Senha</label>
+                    <input type="password" Name="confsenha" value="@ViewBag.confsenha" class="form-control" />
+                    <br />
+                }
+
+
+                <h2 style="text-align:left; padding-left:55px; padding-bottom:10px;">Informações Gerais</h2><br />
+                @if (ViewBag.operacao == "I")
+                {
+                    <input type="hidden" Name="id" value="@Model.id" class="form-control" />
+                }
+                else
+                {
+                    <label for="nome" class="control-label">Id Cadastrado</label>
+                    <input type="number" Name="id" value="@Model.id" class="form-control" readonly />
+                    <span asp-validation-for="id" class="text-danger"></span>
+                    <br />
+                }
+
+                <label for="nome" class="control-label">Nome completo</label>
+                <input type="text" Name="Nome" value="@Model.nome" class="form-control" required />
+                <span asp-validation-for="nome" class="text-danger"></span>
+                <br />
+
+                <label for="cpf" class="control-label">CPF</label>
+                <input type="text" Name="cpf" value="@Model.cpf" class="form-control" required onkeypress="mascara(this, '###.###.###-##')" maxlength="14" />
+                <span asp-validation-for="cpf" class="text-danger"></span>
+                <br />
+
+                <label id="estCivil" for="id_EstadoCivil" class="control-label">Estado Civil</label><br />
+                <select id="comboBox" asp-for="id_EstadoCivil" asp-items="ViewBag.EstadoCivis" class="form-control"> </select><br />
+                <span asp-validation-for="id_EstadoCivil" class="text-danger"></span><br />
+                <br />
+
+                <label for="nascimento" class="control-label">Data de Nascimento</label><br />
+                <input type="date" Name="nascimento" value="@Model.nascimento.ToString("yyyy-MM-dd")" class="form-control" />
+                <span asp-validation-for="nascimento" class="text-danger"></span>
+                <br />
+
+                <label id="genero" for="genero" class="control-label">Genêro</label><br />
+                <select id="comboBox" asp-for="genero" asp-items="ViewBag.Genero" class="form-control"> </select>
+                <span asp-validation-for="genero" class="text-danger"></span><br />
+                <br />
+
+                <label for="tel_residencial" class="control-label">Telefone Residencial</label><br />
+                <input type="text" Name="tel_residencial" value="@Model.tel_residencial" class="form-control" onkeypress="mascara(this, '## ####-####')" maxlength="12" />
+                <span asp-validation-for="tel_residencial" class="text-danger"></span>
+                <br />
+
+                <label for="tel_celular" class="control-label">Telefone Celular</label>
+                <input type="text" Name="tel_celular" value="@Model.tel_celular" class="form-control" onkeypress="mascara(this, '## #####-####')" maxlength="13" />
+                <span asp-validation-for="tel_celular" class="text-danger"></span>
+                <br />
+
+                <img id="uploadIm" src="data:image/jpeg;base64, @Model.ImagemEmBase64" class="img-responsive">
+                <input id="botaoEs" type="file" name="Imagem" onchange="exibirImagem()" class="btn btn-secondary">
+                <span asp-validation-for="Imagem" class="text-danger"></span><br />
+
+
+                <input id="botao" type="submit" value="Salvar dados" onClick="javarscipt:Endereco()" />
+                <span class="text-danger">@ViewBag.Erro</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/site.js"></script>
+<script>
+
+    function exibirImagem() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("botaoEs").files[0]);
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("uploadIm").src = oFREvent.target.result;
+        };
+    }
+
+    function mascara(t, mask) {
+        var i = t.value.length;
+        var saida = mask.substring(1, 0);
+        var texto = mask.substring(i)
+        if (texto.substring(0, 1) != saida) {
+            t.value += texto.substring(0, 1);
+        }
+    }
+
+</script>
+
+

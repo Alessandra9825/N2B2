@@ -1,0 +1,54 @@
+﻿@model List<EletroStar.Models.Principais.CarrinhoProjetoViewModel>
+@{
+    ViewData["Title"] = "IndexProjeto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @{double valorTotal = 0;}
+    @if (ViewBag.listaCarrinhoProdutos.Count == 0)
+    {
+        <h2>Carrinho de Projetos</h2><br/>
+        <p>Você ainda não possui nenhum projeto no seu carrinho!</p><br/>
+        <a asp-area="" asp-controller="Comprar" asp-action="Index">Clique aqui para ir para o catálogo</a>
+    }
+    else
+    {
+        <h1>Projetos Incluídos</h1><br>
+        <table class="table table-responsive" id="Tabela">
+
+            <tr>
+                <th>Ações</th>
+                <th>Nome</th>
+                <th>Quantidade</th>
+                <th>Projeto Unit. R$</th>
+                <th>Total R$</th>
+            </tr>
+
+            @foreach (var carrinho in Model)
+            {
+                <tr>
+                    <td>
+                        <a id="acoes" href="Carrinho/Edit?id_Carrinho=@carrinho.id&id_Produto=@carrinho.id_Projeto">
+                            Editar
+                        </a>
+                        <a id="acoes" href="javascript:apagarCliente(@carrinho.id)">
+                            Excluir
+                        </a>
+                    </td>
+                    <td>@carrinho.nome.ToUpper()</td>
+                    <td>@carrinho.quantidade</td>                    
+                    <td>@carrinho.valor.ToString("C")</td>
+                    <td>@((carrinho.valor*carrinho.quantidade).ToString("C"))</td>
+
+                    @(valorTotal+=(carrinho.valor*carrinho.quantidade))
+                </tr>
+            }
+
+            <p>Valor total dos Projetos... R$: @valorTotal.ToString("C")</p>
+
+            <a asp-controller="" asp-action="">Finalizar Comprar...</a>
+        </table>
+    }
+</div>
+

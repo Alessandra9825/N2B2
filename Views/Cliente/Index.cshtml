@@ -1,0 +1,24 @@
+﻿@model List<ClienteViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/listagem.css">
+
+<div id="pesquisar">
+    <form>
+        <label for="cpf">Consultar CPF</label>
+        <input type="text" Name="cpf" id="cpf" class="form-control" />
+        <input id="botao" type="button" value="Pesquisar" onclick="atualizaGrid()" />
+    </form>
+</div>
+<div id="conteudoGrid">
+    @{Html.RenderPartial("pvCliente", Model);}
+</div>
+
+<script>
+    function apagarCliente(id) {
+        if (confirm('Deseja realizar a exclusão do Cliente?'))
+            location.href = 'Cliente/Delete?id=' + id;
+    }
+</script>

@@ -1,0 +1,105 @@
+﻿@model EnderecoViewModel
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/form.css">
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="Salvar" method="post">
+            <div class="formulario">
+                <input type="hidden" Name="operacao" value="@ViewBag.operacao" />
+                <input type="hidden" Name="id_Cliente" value="@ViewBag.idCliente" />
+                <h2 style="text-align:left; padding-left:120px; padding-bottom:10px;">Endereço</h2>
+
+                @if (ViewBag.operacao == "I")
+                {
+                    <input type="hidden" Name="id" value="@Model.id" class="form-control" />
+                }
+                else
+                {
+                    <label for="id" class="control-label">Id Endereço</label>
+                    <input type="number" Name="id" value="@Model.id" class="form-control" readonly />
+                    <span asp-validation-for="id" class="text-danger"></span>
+                    <br />
+                }
+
+                <label for="cep" class="control-label">CEP</label>
+                <input id="cep" type="text" Name="cep" value="@Model.cep" class="form-control" onfocusout="CompEndereco(this)" onkeypress="mascara(this, '#####-###')" maxlength="9" />
+                <span asp-validation-for="cep" class="text-danger"></span>
+                <br />
+
+                <label for="rua" class="control-label">Rua</label>
+                <input id="rua" type="text" Name="rua" value="@Model.rua" class="form-control" />
+                <span asp-validation-for="rua" class="text-danger"></span>
+                <br />
+
+                <label for="numero" class="control-label">Nº</label>
+                <input id="numero" type="number" Name="numero" value="@Model.numero" class="form-control" />
+                <span asp-validation-for="numero" class="text-danger"></span>
+                <br />
+
+                <label for="complemento" class="control-label">Complemento</label>
+                <input id="complemento" type="text" Name="complemento" value="@Model.complemento" class="form-control" />
+                <span asp-validation-for="numero" class="text-danger"></span>
+                <br />
+
+                <label for="bairro" class="control-label">Bairro</label>
+                <input id="bairro" type="text" Name="bairro" value="@Model.bairro" class="form-control" />
+                <span asp-validation-for="bairro" class="text-danger"></span>
+                <br />
+
+                <label for="cidade" class="control-label">Cidade</label>
+                <input id="cidade" type="text" Name="cidade" value="@Model.cidade" class="form-control" />
+                <span asp-validation-for="cidade" class="text-danger"></span>
+                <br />
+
+                <label for="id_EstadoCivil" class="control-label">Estado</label>
+                <select id="uf" asp-for="id_UF" asp-items="ViewBag.Estados" class="form-control"> </select>
+                <span asp-validation-for="id_UF" class="text-danger"></span>
+                <br />
+
+                <input type="submit" value="Salvar dados" />
+                <br />
+                <span class="text-danger">@ViewBag.Erro</span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function CompEndereco(cep) {        
+        $.ajax({
+            url: 'https://viacep.com.br/ws/' + cep.value + '/json/unicode/',
+            dataType: 'json',
+            success: function (resposta) {
+                $("#rua").val(resposta.logradouro);
+                $("#complemento").val(resposta.complemento);
+                $("#bairro").val(resposta.bairro);
+                $("#cidade").val(resposta.localidade);                
+                $.ajax({
+                    type: "POST",
+                    url: "/Endereco/EstadoID",
+                    cache: false,
+                    data: { "uf": resposta.uf },
+                    success: function (id) {
+                        $("#uf").val(id);
+                    }
+                });
+                $("#numero").focus();
+            }
+        });
+    };    
+
+    function mascara(t, mask) {
+        var i = t.value.length;
+        var saida = mask.substring(1, 0);
+        var texto = mask.substring(i)
+        if (texto.substring(0, 1) != saida) {
+            t.value += texto.substring(0, 1);
+        }
+    }
+</script>
+

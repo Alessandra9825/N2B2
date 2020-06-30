@@ -1,0 +1,262 @@
+﻿* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('../imagem/planofundo.jpg');
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
+#icon{
+    top: 400px;
+    width: 45px;
+}
+#lgt {
+    width:45px;
+    height:45px;
+}
+#texto {
+    align-self: center;
+    top: 20%;
+    width: 950px;
+    height: 1350px;
+    background-color: rgba(60, 196, 220, 0.5);
+    left: 18%;
+    position: absolute;
+}
+
+#icone {
+    left: 0;
+    top: 400px;
+    z-index: 1;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+nav {
+    background-color: rgba(41, 35, 71, 0.5);
+    width: 245px;
+    height:1024px;
+    left: -350px;
+    position: absolute;
+    transition: all .5s;
+    top: 0px;
+}
+
+input[type="checkbox"]:checked ~ nav {
+    transform: translateX(350px);
+}
+
+ul {
+    list-style: none;
+    top: 50px;
+    position: absolute;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+}
+
+#logado {
+    display: inline-flex;
+    margin: 0px 5px;
+    padding: 15px;
+    right: 0px;    
+    position: fixed;
+    z-index: 1;
+}
+
+#logado a {
+    margin: 0px 5px;
+    z-index: 1;
+}
+
+a#logOut {
+    margin: 0px 5px;
+    margin: -15px 5px;
+    z-index: 1;
+}
+
+a#icones {
+    margin: 0px 5px;
+    margin: -33px 5px;
+    z-index: 1;
+}
+
+a {
+    display: block;
+    padding: 20px 5px;
+    color: white;
+    text-decoration: none;
+    color: black;
+}
+
+#icMenu{
+    padding: 15px;
+    left: 0px;
+    top: -1.8%;
+    position: fixed;
+    z-index: 1;
+}
+
+
+#tela {
+    padding:0;
+    left:0;
+    width: 100%;
+    height: 65px;
+    top:-2%;
+    position: absolute;
+    opacity: .8;
+}
+
+h1 {
+    text-align: center;
+}
+
+#boasVindas {
+    font-size:x-large;
+    top:150px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+    margin: 0px 100px;
+}
+
+#menu ul li {
+    padding: 15px;
+    position: relative;
+    width: 215px;
+    border-top: 1px solid rgba(29, 24, 54, 0.5);
+}
+
+#menu ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#menu ul ul {
+    display: none;
+    background-color: rgba(41, 35, 71, 0.5);
+    padding: 0;
+    margin: 0;
+    left: 246px;
+    top: -1%;
+    position: absolute;
+}
+
+#menu ul li:hover > ul {
+    display: block;
+}
+
+#menu ul li:hover {
+    background-color: rgba(27, 23, 51, 0.5);
+}
+#login{
+    padding: 15px;
+    right:0px;
+    top: -1.7%;
+    width:45px;
+    height:45px;
+    z-index: 1;
+    position:fixed;
+}
+footer {
+    margin: auto;
+    width: 100%;
+    height:60px;
+    bottom: 0;
+    position: fixed;
+    background-color: rgba(27, 23, 51, 0.5);
+}
+.logotipo label{
+    width:100%;
+    text-align:center;
+    font-size:0.7em;
+    margin-top:10px
+}
+.logotipo img{
+    width:4px;
+    height:4px;
+}
+.inicio {
+    background-color: rgba(27, 23, 51, 0.12);
+    height:50px;
+    width:100%;
+    top:0;
+    position:fixed;
+    z-index:1;
+}
+#quemSomos {
+    width: 700px;
+    height: 200px;
+    top: 300px;
+    margin: 0px 100px;
+    position: absolute;
+}
+.integrantes {
+    font-family: 'Monotype Corsiva';
+    color: darkslategrey;
+    text-align: center;
+    margin-top: 500px;
+    font-size: 30px;
+}
+
+#titulo {
+    padding: 80px;
+    margin-top: -80px;
+    margin-left: 100px;
+    text-align: center;
+    font-size: 55px;
+    font-family: 'Monotype Corsiva';
+    font-stretch: condensed;
+    color: black;
+    text-shadow: darkgrey 0.1em 0.1em 0.2em;
+    -webkit-text-stroke-width: 1px; /* largura da borda */
+    -webkit-text-stroke-color: black; /* cor da borda */
+    letter-spacing: 10px;
+}
+
+
+
+.container-cards {
+    width: 800px;
+    margin-top: 80px;
+    margin-left: 8%;
+    
+}
+
+.container-cards-items {
+    padding-top: 10px;
+    display: inline-block;
+    max-height: 10rem;
+    max-width: 15rem;
+    padding-left: 20px;
+ 
+}
+
+.container-cards-items:hover{
+    transform:scale(1.07);
+    border-width:2px;
+}
+.container-cards-items img {
+    height: 100px;
+    width: 100px;
+    padding-left: 15px;
+    margin: 15px 5px;
+}
+
+
+#pesquisar {
+    margin-top: 90px;
+    margin-left: 45%;
+    padding:25px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-stretch:condensed;
+    font-size:large;
+}
+
+

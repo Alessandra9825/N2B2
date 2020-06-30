@@ -1,0 +1,26 @@
+﻿@model List<ProdutoViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/listagem.css">
+
+<div id="pesquisar">
+    <form>
+        <label for="nome">Consultar Produto</label>
+        <input type="text" Name="nome" id="nome" class="form-control" />
+        <input id="botao" type="button" value="Pesquisar" onclick="atualizaGridProduto()" />
+    </form>
+</div>
+
+<div id="conteudoGrid">
+    @{Html.RenderPartial("pvProduto", Model);}
+</div>
+
+<script>
+    function apagarProduto(id) {
+        if (confirm('Deseja realizar a exclusão do Produto?'))
+            location.href = 'Produto/Delete?id=' + id;
+    }
+</script>
+

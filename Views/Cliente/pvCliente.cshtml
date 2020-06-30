@@ -1,0 +1,36 @@
+﻿@model List<ClienteViewModel>
+
+
+    <div >
+        <h1>Lista de Clientes</h1> <br>
+        <table class="table table-responsive" id="Tabela">
+
+            <tr>
+                <th>Ações</th>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Nascimento</th>
+                <th>Imagens</th>
+            </tr>
+
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>
+                        <a id="acoes" href="Cliente/Edit?id=@cliente.id">
+                            Editar
+                        </a>
+                        <a id="acoes" href="javascript:apagarCliente(@cliente.id)">
+                            Excluir
+                        </a>
+                    </td>
+                    <td>@cliente.cpf.ToUpper()</td>
+                    <td>@cliente.nome.ToUpper()</td>
+                    <td>@cliente.nascimento</td>
+                    <td>
+                        <img src="data:image/jpeg;base64,@cliente.ImagemEmBase64" style="width:100px; height:100px;">
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>

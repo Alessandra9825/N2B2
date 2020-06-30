@@ -1,0 +1,64 @@
+﻿@model ClienteViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css">
+    <link rel="stylesheet" href="~/css/login.css">
+</head>
+<body>
+    <form class="login-form" asp-action="Login">
+        <h3 style="color: red;">@ViewBag.Erro</h3>
+        <h1>Sign In</h1>
+
+        <div class="textb">
+            <input type="text" Name=email required">
+            <div class="placeholder">E-mail</div>
+        </div>
+
+        <div class="textb">
+            <input type="password" Name=senha required>
+            <div class="placeholder">Password</div>
+            <div class="show-password fas fa-eye-slash"></div>
+        </div>
+
+        <button class="btn fas fa-arrow-right"></button>
+        <a asp-controller="Cliente" asp-action="Create">Create Account</a>
+    </form>
+
+    <script>
+        var fields = document.querySelectorAll(".textb input");
+        var btn = document.querySelector(".btn");
+
+        function check(){
+            if(fields[0].value != ""  && fields[1].value != "")
+                btn.disabled = false;
+            else
+                btn.disabled = true;
+        }
+
+        fields[0].addEventListener("keyup", check);
+        fields[1].addEventListener("keyup", check);
+
+        document.querySelector(".show-password").addEventListener("click",
+            function(){
+                if(this.classList[2] == "fa-eye-slash"){
+                    this.classList.remove("fa-eye-slash");
+                    this.classList.add("fa-eye");
+                    fields[1].type = "text";
+                }else{
+                    this.classList.remove("fa-eye");
+                    this.classList.add("fa-eye-slash");
+                    fields[1].type = "password";
+                }
+            })
+    </script>
+
+</body>
+</html>

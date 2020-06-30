@@ -1,0 +1,72 @@
+﻿.formulario {
+    float: inherit;
+    margin-top: -2px;
+    padding: 10px;
+    margin-left: 250px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+}
+
+.formulario input {
+        padding: 4px;
+        width: 350px;
+        display: block;
+}
+#botao {
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-stretch: expanded;
+    width:120px;
+    margin-left:100px
+}
+#botaoEs{    
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-stretch: expanded;
+    background-color:white;
+}
+.formulario input {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    box-shadow: 1px 1px 2px #333333;
+    -moz-box-shadow: 1px 1px 2px #333333;
+    -webkit-box-shadow: 1px 1px 2px #333333;
+    border: 1px solid #000000;
+}
+#comboBox {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    box-shadow: 1px 1px 2px #333333;
+    -moz-box-shadow: 1px 1px 2px #333333;
+    -webkit-box-shadow: 1px 1px 2px #333333;
+    border: 1px solid #000000;
+    width:350px;
+    height:25px;
+}
+.formulario h2 {
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-stretch:condensed;
+    font-display:block;
+    padding:-200px;
+}
+#uploadIm{
+    border: 1px solid gray;    
+    width: 200px;
+    height: 170px;
+    padding: 25px;
+    margin-bottom: 20px;
+    margin-left: 60px;    
+    background-color:azure;
+}
+span{
+    font-style:italic;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:red;
+    padding-bottom:10px;
+    font-size:larger;
+    font-stretch:narrower;
+    background-color:rgb(148, 148, 148 , 0.3);
+}

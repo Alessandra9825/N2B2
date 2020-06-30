@@ -1,0 +1,63 @@
+﻿@model List<EletroStar.Models.Principais.CarrinhoProdutoViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/form.css">
+<link rel="stylesheet" href="~/css/listagem.css">
+
+<div id="conteudoGrid">
+    @if (Model.Count == 0)
+    {
+        <h2>Carrinho</h2><br>
+        <p>Você ainda não possui nenhum produto no seu carrinho!</p><br />
+        <a asp-area="" asp-controller="Comprar" asp-action="Index">Clique aqui para ir para o catálogo</a>
+    }
+    else
+    {
+        <div>
+            <h2>Lista de Produtos</h2><br>
+            <table class="table table-responsive" id="Tabela">
+
+                <tr>
+                    <th>Ações</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Quantidade</th>
+                    <th>Valor Total R$:</th>
+                    <th>Imagem</th>
+                </tr>
+
+                @foreach (var Produto in Model)
+                {
+                    <tr>
+                        <td>
+                            <a id="acoes" href="javascript:apagarProduto(@Produto.id)">
+                                Adicionar - SEM
+                            </a>
+
+                            <a id="acoes" href="javascript:apagarProduto(@Produto.id)">
+                                Remover
+                            </a>
+                        </td>
+                        <td>@Produto.nome.ToUpper()</td>
+                        <td>@Produto.descricao.ToUpper()</td>
+                        <td>@Produto.quantidade</td>
+                        <td>@((Produto.quantidade * Produto.valor))</td>
+                        <td><img src="data:image/jpeg;base64,@Produto.ImagemEmBase64" style="width:100px; height:100px;"></td>
+                    </tr>                        
+                }
+            </table>
+        </div>
+        <script>
+            function apagarProduto(id) {
+                if (confirm('Deseja remover o produto do carrinho?'))
+                    location.href = '../Carrinho_Produto/Remover?id=' + id;
+            }
+        </script>
+
+        <a asp-area="" asp-controller="Comprar" asp-action="Index">Adicionar outro produto</a>
+    }
+</div>
+

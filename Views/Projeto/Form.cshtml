@@ -1,0 +1,49 @@
+﻿@model EletroStar.Models.Principais.ProjetoViewModel
+@{
+    ViewData["Title"] = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/form.css">
+
+<div class="row">
+    <div class="col-md-4">
+        <form action="Salvar" method="post" enctype="multipart/form-data">
+            <div class="formulario">
+                <input type="hidden" Name="operacao" value="@ViewBag.operacao" />
+                <h2 style="text-align:left; padding-left: 60px; padding-bottom:10px;">Cadastrar Projeto</h2><br />
+
+                @if (ViewBag.operacao == "I")
+                {
+                    <input type="hidden" Name="id" value="@Model.id" class="form-control" />
+                }
+                else
+                {
+                    <label for="id" class="control-label">Id</label>
+                    <input type="number" Name="id" value="@Model.id" class="form-control" readonly />
+                    <span asp-validation-for="id" class="text-danger"></span>
+                    <br />
+                }
+
+                <label for="nome" class="control-label">Nome:</label>
+                <input type="text" Name="Nome" value="@Model.nome" class="form-control" />
+                <span asp-validation-for="nome" class="text-danger"></span>
+                <br />
+
+                <label for="descricao" class="control-label">Descrição:</label>
+                <input type="text" Name="descricao" value="@Model.descricao" class="form-control" />
+                <span asp-validation-for="descricao" class="text-danger"></span>
+                <br />
+
+                <label for="descricao" class="control-label">Link:</label>
+                <input type="text" Name="link" value="@Model.link" class="form-control" />
+                <span asp-validation-for="link" class="text-danger"></span>
+                <br />
+               
+                <input id="botao" type="submit" value="Salvar dados" />
+                <span class="text-danger">@ViewBag.Erro</span>
+            </div>
+        </form>
+    </div>
+</div>
+

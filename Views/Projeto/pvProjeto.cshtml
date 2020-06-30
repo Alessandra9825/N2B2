@@ -1,0 +1,35 @@
+﻿@model List<EletroStar.Models.Principais.ProjetoViewModel>
+   
+<div id="bodyTabela">
+    <h1>Lista de Projetos</h1>
+    <br>
+    <table class="table table-responsive">
+
+        <tr>
+            <th>Ação</th>
+            <th>Id Projeto</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Link</th>
+        </tr>
+
+        @foreach (var projeto in Model)
+    {
+        <tr>
+            <td>
+                <a id="acoes" href="Produto/Edit?id=@projeto.id">Editar</a>
+                <a id="acoes" href="javascript:apagarProjeto(@projeto.id)">Apagar</a>
+            </td>
+
+            <td>@projeto.id</td>
+            <td>@projeto.nome</td>
+            <td>@projeto.descricao</td>
+            <td>
+                <a href="@projeto.link">@projeto.link</a>
+            </td>
+        </tr>
+    }
+    </table>
+
+</div>
+
