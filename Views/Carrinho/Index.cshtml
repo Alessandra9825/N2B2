@@ -1,0 +1,40 @@
+﻿@model List<ProdutoViewModel>
+
+<h1>Produtos</h1>
+
+@{ 
+    int contador = 0;
+    
+    <div class="fundo-vitrine">
+        <img src="~/imagem/icons8-buy-96.png" style="width:50px; height:50px;" />
+        <h4> Há @ViewBag.TotalCarrinho produtos selecionados.</h4>
+        <a href="/Carrinho/Visualizar">Visualizar</a>
+    </div>
+
+    <div class="container-cards">
+        @foreach (var produto in Model)
+         {
+            @if (contador < 5)
+             {
+                    <div class="container-cards-items">
+                        <img class="produto" src="data:image/jpeg;base64,@produto.ImagemEmBase64">
+                        <div class="textProdut">
+                            <h5>@produto.nome </h5>
+                            <h5>R$ @produto.valor</h5>
+                        </div>
+                        <a href="/Carrinho/Detalhes?idProduto = @produto.id">
+                          <img id="btn-buy" src="~/imagem/icons8-buy-96.png"/>
+                        </a>
+                    </div>
+                    contador++; 
+             }
+
+            else
+            {
+                <br />
+                contador = 0; 
+                
+            }
+         }
+    </div>
+}

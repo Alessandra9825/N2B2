@@ -61,32 +61,6 @@ ul {
     margin: 0;
 }
 
-#logado {
-    display: inline-flex;
-    margin: 0px 5px;
-    padding: 15px;
-    right: 0px;    
-    position: fixed;
-    z-index: 1;
-}
-
-#logado a {
-    margin: 0px 5px;
-    z-index: 1;
-}
-
-a#logOut {
-    margin: 0px 5px;
-    margin: -15px 5px;
-    z-index: 1;
-}
-
-a#icones {
-    margin: 0px 5px;
-    margin: -33px 5px;
-    z-index: 1;
-}
-
 a {
     display: block;
     padding: 20px 5px;
@@ -224,17 +198,18 @@ footer {
 
 .container-cards {
     width: 800px;
-    margin-top: 80px;
-    margin-left: 8%;
+    margin-left: 13%;
     
 }
 
 .container-cards-items {
     padding-top: 10px;
     display: inline-block;
-    max-height: 10rem;
-    max-width: 15rem;
-    padding-left: 20px;
+    max-height: 13rem;
+    max-width: 25rem;
+    border-color:darkblue;
+    border:solid;
+    padding:5px;
  
 }
 
@@ -242,21 +217,51 @@ footer {
     transform:scale(1.07);
     border-width:2px;
 }
+
 .container-cards-items img {
     height: 100px;
     width: 100px;
-    padding-left: 15px;
-    margin: 15px 5px;
+    margin: 15px;
+    position: center;
 }
 
+.produto{
+    margin-left:-6px;
+}
 
 #pesquisar {
     margin-top: 90px;
     margin-left: 45%;
-    padding:25px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-stretch:condensed;
-    font-size:large;
+    padding: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-stretch: condensed;
+    font-size: large;
 }
 
 
+
+
+
+
+#btn-buy{
+    height:35px;
+    width: 60px;
+    margin-top:-15px;
+    position :relative;
+}
+.fundo-vitrine {
+    background-color: rgba(0, 15, 138, 0.40);
+    width: 900px;
+    height:200px;
+    display:inline-block;
+    padding: 5px;
+    margin: 0 auto;
+    border-radius: 10px;
+} 
+ 
+ 
+.textProdut{
+    position:relative;
+    margin-left:28%;
+
+}
