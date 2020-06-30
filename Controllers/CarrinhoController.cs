@@ -15,23 +15,22 @@ using Microsoft.AspNetCore.Http;
 
 namespace EletroStar.Controllers
 {
-    public class CarrinhoController : Controller
+    public class CarrinhoController : PadraoController<ProdutoViewModel>
     {
-
-        public IActionResult Index()
+        override public IActionResult Index()
         {
             try
             {
                 ProdutoDAO dao = new ProdutoDAO();
                 var listaDeProdutos = dao.Listagem();
-                var carrinho = ObtemCarrinhoNaSession();
-                @ViewBag.TotalCarrinho = carrinho.Sum(c => c.quantidade);
+                //var carrinho = ObtemCarrinhoNaSession();
+                //@ViewBag.TotalCarrinho = carrinho.Sum(c => c.quantidade);
 
                 return View(listaDeProdutos);
             }
-            catch
+            catch(Exception err)
             {
-                return View();
+                return View(err);
             }
         }
 
@@ -111,15 +110,7 @@ namespace EletroStar.Controllers
             return View(carrinho);
         }
 
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            if (!HelperController.VerificaUserLogado(HttpContext.Session))
-                context.Result = RedirectToAction("Index", "Login");
-            else
-            {
-                ViewBag.Logado = true; base.OnActionExecuting(context);
-            }
-        }
+        
 
     }
 }
