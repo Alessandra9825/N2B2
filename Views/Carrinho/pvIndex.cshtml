@@ -1,36 +1,32 @@
-﻿@model List<ProdutoViewModel>
+﻿
 
-
-<h5 style="color:red">@ViewBag.error</h5>
-
-<h1>Produtos</h1>
-
-@{ 
+@{
     int contador = 0;
 
     <div class="container-cards">
         @foreach (var produto in Model)
-            {
+        {
             @if (contador < 5)
-                {
+            {
                 <div class="container-cards-items">
                     <img src="data:image/jpeg;base64,@produto.ImagemEmBase64">
                     <h5 style="text-align:center;">@produto.nome </h5>
                     <h5 style="text-align:center;">R$ @produto.valor</h5><br />
-                    <input id="botao" type="submit" value="Comprar" onclick="comprarProduto(@produto.id, @ViewBag.idCliente)"/>
+                    <input id="container-cards-item-botao" type="submit" value="Comprar" onclick="comprarProduto(@produto.id, @ViewBag.idCliente)" />
                 </div>
-                    contador++; 
-                }
+                contador++;
+            }
 
             else
             {
                 <br />
-                contador = 0; 
-                
+                contador = 0;
+
             }
-         }
-    </div>   
+        }
+    </div>
 }
+
 <script>
 
     function comprarProduto(id, logado) {
@@ -38,8 +34,7 @@
             alert("Você precisa estar logado para realizar uma compra");
             location.href = '../Login/Entrar';
         }
-        else
-        {
+        else {
             if (confirm('Deseja adicionar o produto ao carrinho?')) {
                 try {
                     var quantidade = prompt("Quantidade do item:", 1);

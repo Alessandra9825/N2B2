@@ -10,6 +10,10 @@ using EletroStar.Models.Relacionamento;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using EletroStar.DAO.Secundarias;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using EletroStar.Models;
+using EletroStar.DAO;
 
 namespace EletroStar.Controllers
 {
@@ -25,7 +29,28 @@ namespace EletroStar.Controllers
                 base.OnActionExecuting(context);
             }
         }
+        public virtual IActionResult Index()
+        {
+            ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
+            ViewBag.Admin = HelperController.VerificaUserAdmin(HttpContext.Session);
+            ViewBag.IdCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+            ProdutoDAO DAO = new ProdutoDAO();
+            var lista = DAO.Listagem();
 
+            CategoriaDAO categDao = new CategoriaDAO();
+            var categorias = categDao.Listagem();
+
+            List<SelectListItem> listaCategorias = new List<SelectListItem>();
+            listaCategorias.Add(new SelectListItem("Selecione uma categoria...", "0"));
+            foreach (var cat in categorias)
+            {
+                SelectListItem item = new SelectListItem(cat.descricao, cat.id.ToString());
+                listaCategorias.Add(item);
+            }
+            ViewBag.categorias = listaCategorias;
+
+            return View(lista);
+        }
         public IActionResult IndexProduto()
         {
             ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
@@ -118,6 +143,18 @@ namespace EletroStar.Controllers
                
             return View();
         }
-        
+
+        public IActionResult AtualizaGridIndexP(int idCategoria)
+        {
+            ProdutoDAO DAO = new ProdutoDAO();
+            List<ProdutoViewModel> lista;
+            if (idCategoria == 0)
+                lista = DAO.ListagemComFiltroCategoria(0);
+            else
+                lista = DAO.ListagemComFiltroCategoria(idCategoria);
+
+            return PartialView("pvIndex", lista);
+        }
+
     }
 }

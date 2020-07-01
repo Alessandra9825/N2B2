@@ -90,6 +90,7 @@ a {
 
 h1 {
     text-align: center;
+    margin-top: 70px;
 }
 
 #boasVindas {
@@ -199,7 +200,7 @@ footer {
 .container-cards {
     width: 800px;
     margin-left: 13%;
-    
+    margin-top: 45px;
 }
 
 .container-cards-items {
@@ -207,8 +208,6 @@ footer {
     display: inline-block;
     max-height: 13rem;
     max-width: 25rem;
-    border-color:darkblue;
-    border:solid;
     padding:5px;
  
 }
@@ -225,8 +224,18 @@ footer {
     position: center;
 }
 
-.produto{
-    margin-left:-6px;
+#container-cards-item-botao {
+    margin-left: 1rem;
+    border-color: #68b465;
+    background: linear-gradient(to bottom, #abd5aa 5%, #68b465 100%);
+    box-shadow: inset 0px 1px 0px 0px #e3f1e3;
+    color: #fff;
+    text-shadow: 0px 1px 0px #528009;
+    width:100px;
+    height:30px;
+}
+.produto {
+    margin-left: -6px;
 }
 
 #pesquisar {
@@ -264,4 +273,41 @@ footer {
     position:relative;
     margin-left:28%;
 
+}
+
+#logado {
+    display: inline-flex;
+    margin: 0px 5px;
+    padding: 15px;
+    right: 0px;
+    position: fixed;
+    z-index: 1;
+}
+
+#logado a {
+    margin: 0px 5px;
+    z-index: 1;
+}
+
+a#logOut {
+    margin: 0px 5px;
+    margin: -15px 5px;
+    z-index: 1;
+}
+
+a#icones {
+    margin: 0px 5px;
+    margin: -33px 5px;
+    z-index: 1;
+}
+fieldset {
+    padding: 0px 5px 5px 5px;
+    border: 1px solid darkblue;
+    border-radius: 10px;
+}
+legend {
+    padding-left: 5px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size:larger;
+    font-stretch:expanded;
 }

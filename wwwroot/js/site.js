@@ -1,7 +1,5 @@
 ﻿function atualizaGrid() {
     var cpfId = cpf.value;
-
-
     $.ajax({
         type: 'POST',
         url: "/Cliente/AtualizaGridIndex",
@@ -12,19 +10,20 @@
         }
     });
 }
+
 function atualizaGridProduto() {
     var nomeId = nome.value;
+   
     $.ajax({
         type: 'POST',
         url: "/Produto/AtualizaGridIndex",
         cache: false,
-        data: { "nome": nomeId },
+        data: { "nome": nomeId},
         success: function (dados) {
             $("#conteudoGrid").html(dados);
         }
     });
 }
-
 
 function atualizaGridProjeto() {
     var nomeId = nome.value;
@@ -39,6 +38,16 @@ function atualizaGridProjeto() {
     });
 }
 
-function mascara(t, mask) {
-    var i = t6
+function atualizaGridProdutoCategoria() {
+    var idCategoria = $("#comboBox").val();
+
+    $.ajax({
+        type: 'POST',
+        url: "/Carrinho/AtualizaGridIndexP",
+        cache: false,
+        data: {"idCategoria": idCategoria },
+        success: function (dados) {
+            $("#conteudoGrid").html(dados);
+        }
+    });
 }

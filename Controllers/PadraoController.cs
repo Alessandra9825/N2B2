@@ -11,9 +11,10 @@ namespace EletroStar.Controllers
 {
     public class PadraoController<T> : Controller where T : PadraoViewModel
     {
+      
         protected PadraoDAO<T> DAO { get; set; }
         protected bool GeraProximoId { get; set; }
-
+       
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             string name = this.ControllerContext.RouteData.Values["controller"].ToString();
@@ -22,7 +23,8 @@ namespace EletroStar.Controllers
             if ((name == "Cliente" && action == "Create") ||
                (name == "Projeto" && action == "Index") ||
                (name == "Vendas" && action == "Index") ||
-               (name == "Produto" && action == "Index"))
+               (name == "Produto" && action == "Index")||
+               (name == "Cliente" && action == "Salvar"))
             {
                 ViewBag.Logado = false;
                 ViewBag.Admin = false;

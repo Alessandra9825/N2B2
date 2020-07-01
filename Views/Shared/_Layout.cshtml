@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - EletroStar</title>
     <link rel="stylesheet" href="~/css/estilo.css">
+    <link href="~/css/form.css" rel="stylesheet" />
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 </head>
@@ -19,12 +20,10 @@
     @if (ViewBag.Logado)
     {
         <div id="logado">
-            <a id="logOut" asp-controller="Login" asp-action="LogOff">Log Out</a>
-
+            <a id="icones" asp-controller="Login" asp-action="LogOff">Log Out</a>
             <a id="icones" asp-controller="Carrinho" asp-action="IndexProduto">
                 <img src="~/imagem/carrinho.png" style="max-width:45px;">
             </a>
-
             <a id="icones" asp-controller="Carrinho" asp-action="IndexProjeto">
                 <img src="~/imagem/projeto.png" style="max-width:45px;">
             </a>
@@ -56,6 +55,8 @@
                         <li><a asp-area="" asp-controller="Produto" asp-action="Create">Novo</a></li>
                     }
                     <li><a asp-area="" asp-controller="Produto" asp-action="Index">Consulta</a></li>
+                    <li><a asp-area="" asp-controller="Carrinho" asp-action="Index">Catalógo</a></li>
+
                 </ul>
             </li>
 
@@ -67,6 +68,7 @@
                         <li><a asp-area="" asp-controller="Projeto" asp-action="Create">Novo</a></li>
                     }
                     <li><a asp-area="" asp-controller="Projeto" asp-action="Index">Consulta</a></li>
+
                 </ul>
             </li>
 
@@ -88,7 +90,6 @@
                     }
                 </ul>
             </li>
-            <li><a asp-area="" asp-controller="Vendas" asp-action="Index">Vendas</a></li>
             <li><a asp-area="" asp-controller="Sobre" asp-action="Index">Sobre</a></li>
         </ul>
     </nav>

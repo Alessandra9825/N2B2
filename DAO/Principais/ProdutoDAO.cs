@@ -52,9 +52,7 @@ namespace EletroStar.DAO.Principais
         }
 
          public List<ProdutoViewModel> ListagemComFiltro(string nome)
-        {
-         
-
+         {
             var tabela = HelperDAO.ExecutaFuncSelect("dbo.func_consultarProduto", nome);
             var lista = new List<ProdutoViewModel>();
 
@@ -65,5 +63,19 @@ namespace EletroStar.DAO.Principais
 
             return lista;
          }
+        public List<ProdutoViewModel> ListagemComFiltroCategoria(int categoria)
+        {
+
+            var tabela = HelperDAO.ExecutaFuncSelect("dbo.func_consultarProdutoC", categoria.ToString());
+
+            var lista = new List<ProdutoViewModel>();
+
+            if (tabela.Rows.Count == 0)
+                return lista;
+            foreach (DataRow registro in tabela.Rows)
+                lista.Add(MontaModel(registro));
+
+            return lista;
+        }
     }
 }

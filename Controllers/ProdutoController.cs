@@ -49,14 +49,14 @@ namespace EletroStar.Controllers
 
         protected override void ValidaDados(ProdutoViewModel model, string operacao, string? confsenha, string? confemail)
         {
-            base.ValidaDados(model, operacao, confsenha,confemail);
+            base.ValidaDados(model, operacao, confsenha, confemail);
             if (string.IsNullOrEmpty(model.descricao))
                 ModelState.AddModelError("descricao", "Preencha a descrição do produto.");
 
             if (string.IsNullOrEmpty(model.nome))
                 ModelState.AddModelError("nome", "Preencha o nome do produto.");
 
-            if (string.IsNullOrEmpty((model.valor).ToString())|| model.valor<=0)
+            if (string.IsNullOrEmpty((model.valor).ToString()) || model.valor <= 0)
                 ModelState.AddModelError("valor", "Preencha o valor corretamente.");
 
             if (model.id_Categoria <= 0)
@@ -126,5 +126,20 @@ namespace EletroStar.Controllers
 
             ViewBag.fabricantes = listaFabricantes;
         }
+
+        public IActionResult AtualizaGridIndexProduto(int categoriaId)
+        {
+            List<ProdutoViewModel> lista;
+            if (categoriaId == 0)
+                lista = (DAO as ProdutoDAO).Listagem();
+            else
+                lista = (DAO as ProdutoDAO).ListagemComFiltroCategoria(categoriaId);
+
+            return PartialView("pvGrid", lista);
+        }
+
+        
     }
+
+
 }
