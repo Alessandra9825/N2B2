@@ -4,51 +4,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
-    @{double valorTotal = 0;}
-    @if (ViewBag.listaCarrinhoProdutos.Count == 0)
+<link rel="stylesheet" href="~/css/form.css">
+<link rel="stylesheet" href="~/css/listagem.css">
+
+<div id="conteudoGrid">
+    @if (Model.Count == 0)
     {
-        <h2>Carrinho de Projetos</h2><br/>
-        <p>Você ainda não possui nenhum projeto no seu carrinho!</p><br/>
-        <a asp-area="" asp-controller="Comprar" asp-action="Index">Clique aqui para ir para o catálogo</a>
+        <h2>Carrinho</h2><br>
+        <p>Você ainda não possui nenhum projeto no seu carrinho!</p><br />
+        <a asp-area="" asp-controller="Projeto" asp-action="IndexProjeto">Clique aqui para ir para o catálogo</a>
     }
     else
     {
-        <h1>Projetos Incluídos</h1><br>
-        <table class="table table-responsive" id="Tabela">
+        double valorTotal = 0;
 
-            <tr>
-                <th>Ações</th>
-                <th>Nome</th>
-                <th>Quantidade</th>
-                <th>Projeto Unit. R$</th>
-                <th>Total R$</th>
-            </tr>
+        <div>
+            <h2 style="text-align:center; padding-top:10px;">Lista de Prodetos</h2><br>
+            <table class="table table-responsive" id="Tabela">
 
-            @foreach (var carrinho in Model)
-            {
                 <tr>
-                    <td>
-                        <a id="acoes" href="Carrinho/Edit?id_Carrinho=@carrinho.id&id_Produto=@carrinho.id_Projeto">
-                            Editar
-                        </a>
-                        <a id="acoes" href="javascript:apagarCliente(@carrinho.id)">
-                            Excluir
-                        </a>
-                    </td>
-                    <td>@carrinho.nome.ToUpper()</td>
-                    <td>@carrinho.quantidade</td>                    
-                    <td>@carrinho.valor.ToString("C")</td>
-                    <td>@((carrinho.valor*carrinho.quantidade).ToString("C"))</td>
-
-                    @(valorTotal+=(carrinho.valor*carrinho.quantidade))
+                    <th>Ações</th>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                    <th>Valor Total R$:</th>
                 </tr>
+
+                @foreach (var projeto in Model)
+                {
+                    <tr>
+                        <td>
+                            <a id="acoes" href="javascript:apagarProjeto(@projeto.id_Projeto)">
+                                Remover
+                            </a>
+                        </td>
+                        <td>@projeto.nome.ToUpper()</td>
+                        <td>@projeto.quantidade</td>
+                        <td>@((projeto.quantidade * projeto.valor).ToString("C"))</td>
+                    </tr>
+
+                    valorTotal += (projeto.quantidade * projeto.valor);
+                }
+            </table>
+        </div>
+        <script>
+            function apagarProjeto(id) {
+                if (confirm('Deseja remover o projeto do carrinho?'))
+                    location.href = '../Carrinho/DeleteProjeto?id_Projeto=' + id;
             }
+        </script>
 
-            <p>Valor total dos Projetos... R$: @valorTotal.ToString("C")</p>
+        <p style="text-align:right; padding-top:10px;">Valor total dos Produtos... @valorTotal.ToString("C")</p>
 
-            <a asp-controller="" asp-action="">Finalizar Comprar...</a>
-        </table>
+        <a asp-controller="" asp-action="">Finalizar Comprar...</a>
+
+        <a asp-area="" asp-controller="Comprar" asp-action="Index">Adicionar outro produto</a>
     }
 </div>
 

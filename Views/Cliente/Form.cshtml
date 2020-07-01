@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form action="Salvar" method="post" enctype="multipart/form-data">
+        <form action="SalvarCliente" method="post" enctype="multipart/form-data">
             <div class="formulario">
                 <input type="hidden" Name="operacao" value="@ViewBag.operacao" />
 
@@ -56,9 +56,9 @@
 
                 @if (ViewBag.Admin)
                 {
-                    <input type="checkbox" id="admin" name="admin" value="@Model.admin">
-                    <label for="horns">Administrador...</label>
-                    <br />
+                    <label id="genero" for="genero" class="control-label">Controle de Acesso</label><br />
+                    <select id="comboBox" asp-for="admin" asp-items="ViewBag.administrador" class="form-control"> </select>
+                    <span asp-validation-for="admin" class="text-danger"></span><br />
                     <br />
                 }
 

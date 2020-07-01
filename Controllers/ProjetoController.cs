@@ -101,6 +101,18 @@ namespace EletroStar.Controllers
                 return View("Form", model);
             }
         }
-        
+
+        public IActionResult IndexProjeto()
+        {
+            ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
+            ViewBag.Admin = HelperController.VerificaUserAdmin(HttpContext.Session);
+            ViewBag.IdCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+
+            ProjetoDAO dao = new ProjetoDAO();
+            var listaProjetos = dao.Listagem();
+
+            return View("Projeto", listaProjetos);
+        }
+
     }
 }

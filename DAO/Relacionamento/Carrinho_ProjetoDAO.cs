@@ -37,11 +37,11 @@ namespace EletroStar.DAO.Relacionamento
             Tabela = "Carrinho_Projeto";
         }
 
-        public Carrinho_ProjetoViewModel Consulta(int id_Cliente, int id_Projeto)
+        public Carrinho_ProjetoViewModel Consulta(int id_Carrinho, int id_Projeto)
         {
             var p = new SqlParameter[]
              {
-                new SqlParameter("@id_Carrinho", id_Cliente),
+                new SqlParameter("@id_Carrinho", id_Carrinho),
                 new SqlParameter("@id_Projeto", id_Projeto)
              };
 

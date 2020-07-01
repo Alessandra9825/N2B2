@@ -37,11 +37,11 @@ namespace EletroStar.DAO.Relacionamento
             Tabela = "Carrinho_Produto";
         }
 
-        public Carrinho_ProdutoViewModel Consulta(int id_Cliente, int id_Produto)
+        public Carrinho_ProdutoViewModel Consulta(int id_Carrinho, int id_Produto)
         {
             var p = new SqlParameter[]
              {
-                new SqlParameter("@id_Carrinho", id_Cliente),
+                new SqlParameter("@id_Carrinho", id_Carrinho),
                 new SqlParameter("@id_Produto", id_Produto)
              };
 
@@ -50,6 +50,6 @@ namespace EletroStar.DAO.Relacionamento
                 return null;
             else
                 return MontaModel(tabela.Rows[0]);
-        }
+        }        
     }
 }

@@ -1,18 +1,21 @@
-﻿
+﻿@model List<EletroStar.Models.Principais.ProjetoViewModel>
+@{
+    ViewData["Title"] = "Projeto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 @{
     int contador = 0;
 
     <div class="container-cards">
-        @foreach (var produto in Model)
+        @foreach (var projeto in Model)
         {
             @if (contador < 5)
             {
-                <div class="container-cards-items">
-                    <img src="data:image/jpeg;base64,@produto.ImagemEmBase64">
-                    <h5 style="text-align:center;">@produto.nome </h5>
-                    <h5 style="text-align:center;">R$ @produto.valor</h5><br />
-                    <input id="container-cards-item-botao" type="submit" value="Comprar" onclick="comprarProduto(@produto.id, @ViewBag.idCliente)" />
+                <div class="container-cards-items">                    
+                    <h5 style="text-align:center;">@projeto.nome </h5>                    
+                    <a style="text-align:center;" href="@projeto.link">Link</a>
+                    <input id="container-cards-item-botao" type="submit" value="Comprar" onclick="comprarProduto(@projeto.id, @ViewBag.idCliente)" />
                 </div>
                 contador++;
             }
@@ -28,19 +31,18 @@
 }
 
 <script>
-
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
             cancelButton: 'btn btn-danger'
         },
         buttonsStyling: false
-    })    
+    })  
 
     function comprarProduto(id, logado) {
         if (logado == 0) {
-            swalWithBootstrapButtons.fire({                
-                text: "Você precisa estar logado para incluir um produto no carrinho!",
+            swalWithBootstrapButtons.fire({
+                text: "Você precisa estar logado para incluir um projeto no carrinho",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Sim, conectar!',
@@ -49,30 +51,30 @@
             }).then((result) => {
                 if (result.value) {
                     location.href = '../Login/Index';
-                } 
-            })            
+                }
+            })
         }
         else {
-            if (confirm('Deseja adicionar o produto ao carrinho?')) {
+            if (confirm('Deseja adicionar o projeto ao carrinho?')) {
                 try {
                     var quantidade = prompt("Quantidade do item:", 1);
                     if (quantidade > 0) {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: 'Seu produto foi salvo com sucesso!',
+                            title: 'Seu projeto foi salvo com sucesso!',
                             showConfirmButton: false,
                             timer: 2000
                         })
                         setTimeout(function () {
-                            location.href = 'Carrinho/AdicionarProduto?id_Produto=' + id + '&quantidade=' + quantidade;
-                        }, 2000);                        
+                            location.href = '../Carrinho/AdicionarProjeto?id_Projeto=' + id + '&quantidade=' + quantidade;
+                        }, 2000);                          
                     }
                     else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: '"Não foi possível adicional uma quantidade negativa de produto"'                            
+                            text: '"Não foi possível adicional uma quantidade negativa de produto"'
                         })
                     }
                 }

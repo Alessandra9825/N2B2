@@ -21,19 +21,29 @@ namespace EletroStar.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!HelperController.VerificaUserLogado(HttpContext.Session))
-                context.Result = RedirectToAction("Index", "Login");
+            string name = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string action = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (name == "Carrinho" && action == "Index")
+                base.OnActionExecuting(context);
             else
             {
-                ViewBag.Logado = true;
-                base.OnActionExecuting(context);
-            }
+                if (!HelperController.VerificaUserLogado(HttpContext.Session))
+                    context.Result = RedirectToAction("Index", "Login");
+                else
+                {
+                    ViewBag.Logado = true;
+                    base.OnActionExecuting(context);
+                }
+            }            
         }
+
         public virtual IActionResult Index()
         {
             ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
             ViewBag.Admin = HelperController.VerificaUserAdmin(HttpContext.Session);
             ViewBag.IdCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+
             ProdutoDAO DAO = new ProdutoDAO();
             var lista = DAO.Listagem();
 
@@ -61,10 +71,7 @@ namespace EletroStar.Controllers
 
             int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));            
 
-            var listaProdutos = dao.Listagem(idCliente);            
-
-            ViewBag.TotalCarrinho = listaProdutos.Sum(c => c.quantidade);
-            ViewBag.TotalValor = listaProdutos.Sum(c => (c.quantidade * c.valor));
+            var listaProdutos = dao.Listagem(idCliente);  
 
             return View(listaProdutos);
         }
@@ -79,10 +86,7 @@ namespace EletroStar.Controllers
 
             int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
 
-            var listaProjetos = dao.ListagemProjetos(idCliente);
-
-            ViewBag.TotalCarrinho = listaProjetos.Sum(c => c.quantidade);
-            ViewBag.TotalValor = listaProjetos.Sum(c => (c.quantidade * c.valor));
+            var listaProjetos = dao.ListagemProjetos(idCliente);        
 
             return View(listaProjetos);
         }
@@ -127,21 +131,105 @@ namespace EletroStar.Controllers
                     dao.Update(prod);
                 }       
 
-                return RedirectToAction("Index", "Vendas");
+                return RedirectToAction("Index");
             }
             catch(Exception error)
             {
                 ViewBag.error = error.Message;
-                return RedirectToAction("Index", "Vendas");
+                return RedirectToAction("Index");
             }
         }
 
         public IActionResult AdicionarProjeto(int id_Projeto, int quantidade)
         {
-            CarrinhoDAO dao = new CarrinhoDAO();
-            int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
-               
-            return View();
+            try
+            {
+                int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+
+                CarrinhoDAO car = new CarrinhoDAO();
+                CarrinhoViewModel carrinho = car.Consulta_IdCliente(idCliente);
+
+                if (carrinho == null)
+                {
+                    carrinho = new CarrinhoViewModel()
+                    {
+                        id_Cliente = idCliente
+                    };
+
+                    car.Insert(carrinho);
+
+                    carrinho = car.Consulta_IdCliente(idCliente);
+                }
+
+                Carrinho_ProjetoDAO dao = new Carrinho_ProjetoDAO();
+                Carrinho_ProjetoViewModel prod = dao.Consulta(carrinho.id, id_Projeto);
+
+                if (prod == null)
+                {
+                    prod = new Carrinho_ProjetoViewModel()
+                    {
+                        id_Carrinho = carrinho.id,
+                        id_Projeto = id_Projeto,
+                        quantidade = quantidade
+                    };
+
+                    dao.Insert(prod);
+                }
+                else
+                {
+                    prod.quantidade = quantidade;
+                    dao.Update(prod);
+                }
+
+                return RedirectToAction("IndexProjeto");
+            }
+            catch (Exception error)
+            {
+                ViewBag.error = error.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult DeleteProduto(int id_Produto)
+        {
+            try
+            {
+                int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+
+                CarrinhoDAO car = new CarrinhoDAO();
+                CarrinhoViewModel carrinho = car.Consulta_IdCliente(idCliente);
+                                
+                Carrinho_ProdutoDAO dao = new Carrinho_ProdutoDAO();
+                dao.Delete(dao.Consulta(carrinho.id, id_Produto).id);
+
+                return RedirectToAction("IndexProduto");
+            }
+            catch (Exception error)
+            {
+                ViewBag.error = error.Message;
+                return RedirectToAction("IndexProduto");
+            }
+        }
+
+        public IActionResult DeleteProjeto(int id_Projeto)
+        {
+            try
+            {
+                int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+
+                CarrinhoDAO car = new CarrinhoDAO();
+                CarrinhoViewModel carrinho = car.Consulta_IdCliente(idCliente);
+
+                Carrinho_ProjetoDAO dao = new Carrinho_ProjetoDAO();
+                dao.Delete(dao.Consulta(carrinho.id, id_Projeto).id);
+
+                return RedirectToAction("IndexProjeto");
+            }
+            catch (Exception error)
+            {
+                ViewBag.error = error.Message;
+                return RedirectToAction("IndexProjeto");
+            }
         }
 
         public IActionResult AtualizaGridIndexP(int idCategoria)

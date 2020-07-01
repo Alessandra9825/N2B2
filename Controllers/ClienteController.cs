@@ -50,7 +50,7 @@ namespace EletroStar.Controllers
         {
             //utiliza a heranca para validar dados iguais
             base.ValidaDados(model, operacao, confsenha, confemail);
-
+                        
             if (string.IsNullOrEmpty(model.cpf))
                 ModelState.AddModelError("CPF", "Preencha o CPF (ex: 123.456.789-12).");
 
@@ -103,6 +103,50 @@ namespace EletroStar.Controllers
             }
         }
 
+        public IActionResult SalvarCliente(ClienteViewModel model, string admin, string operacao, string? confsenha, string? confemail)
+        {
+            try
+            {
+                ModelState.Clear();
+
+                ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
+                ViewBag.Admin = HelperController.VerificaUserAdmin(HttpContext.Session);
+                ViewBag.IdCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+
+                if (admin == "A")
+                    model.admin = true;
+
+                ValidaDados(model, operacao, confsenha, confemail);
+                if (ModelState.IsValid == false)
+                {
+                    ViewBag.operacao = operacao;
+                    PreencheDadosParaView(operacao, model);
+                    return View("Form", model);
+                }
+                else
+                {
+                    if (operacao == "I")
+                        DAO.Insert(model);
+                    else
+                        DAO.Update(model);
+
+                    string controller = this.ControllerContext.RouteData.Values["controller"].ToString();
+
+                    if (controller == "Cliente" || controller == "Endereco")
+                        return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception erro)
+            {
+                ViewBag.Erro = "Ocorreu um erro: " + erro.Message;
+                ViewBag.operacao = operacao;
+                PreencheDadosParaView(operacao, model);
+                return View("Form", model);
+            }
+        }
+
         protected override void PreencheDadosParaView(string operacao, ClienteViewModel model)
         {
             //utiliza os dados do pai
@@ -132,6 +176,14 @@ namespace EletroStar.Controllers
             listaGeneros.Add(new SelectListItem("Feminino", "F"));
 
             ViewBag.Genero = listaGeneros;
+
+            List<SelectListItem> listaAdmin = new List<SelectListItem>();
+
+            listaAdmin.Add(new SelectListItem("Selecione o tipo de acesso..", "0"));
+            listaAdmin.Add(new SelectListItem("Cliente", "C"));
+            listaAdmin.Add(new SelectListItem("Adminitsrador", "A"));
+
+            ViewBag.administrador = listaAdmin;
 
         }
         

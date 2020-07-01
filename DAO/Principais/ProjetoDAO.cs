@@ -56,16 +56,18 @@ namespace EletroStar.DAO.Principais
             using (var transacao = new System.Transactions.TransactionScope())
             {
                 ProjetoDAO projetoDAO = new ProjetoDAO();
-                projetoDAO.Insert(model);                
+                projetoDAO.Insert(model);
 
-                var p = new SqlParameter[2];
-                p[0] = new SqlParameter("@id_Projeto", model.id);
-                p[1] = new SqlParameter("@id_Produto", 0);
-
-
+                model.id = projetoDAO.ProximoId() - 1;
+                               
                 foreach (int id in idProdutos)
                 {
-                    p[1].Value = id;
+                    if (id == 0)
+                        continue;
+
+                    var p = new SqlParameter[2];
+                    p[0] = new SqlParameter("@id_Projeto", model.id);
+                    p[1] = new SqlParameter("@id_Produto", id);                    
 
                     HelperDAO.ExecutaProc("spInsert_ProjetoProduto", p);
                 }                
@@ -88,6 +90,9 @@ namespace EletroStar.DAO.Principais
 
                 foreach (int id in idProdutos)
                 {
+                    if (id == 0)
+                        continue;
+
                     p[1].Value = id;
 
                     HelperDAO.ExecutaProc("spInsert_ProjetoProduto", p);

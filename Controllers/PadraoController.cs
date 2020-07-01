@@ -24,6 +24,7 @@ namespace EletroStar.Controllers
                (name == "Projeto" && action == "Index") ||
                (name == "Vendas" && action == "Index") ||
                (name == "Produto" && action == "Index") ||
+               (name == "Projeto" && action == "IndexProjeto") ||
                (name == "Cliente" && action == "Salvar"))
             {
                 ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);

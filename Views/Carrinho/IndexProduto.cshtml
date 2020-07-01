@@ -12,14 +12,14 @@
     {
         <h2>Carrinho</h2><br>
         <p>Você ainda não possui nenhum produto no seu carrinho!</p><br />
-        <a asp-area="" asp-controller="Comprar" asp-action="Index">Clique aqui para ir para o catálogo</a>
+        <a asp-area="" asp-controller="Carrinho" asp-action="Index">Clique aqui para ir para o catálogo</a>
     }
     else
     {
          double valorTotal = 0; 
 
         <div>
-            <h2>Lista de Produtos</h2><br>
+            <h2 style="text-align:center; padding-top:10px;">Lista de Produtos</h2><br>
             <table class="table table-responsive" id="Tabela">
 
                 <tr>
@@ -34,12 +34,8 @@
                 @foreach (var Produto in Model)
                 {
                     <tr>
-                        <td>
-                            <a id="acoes" href="javascript:apagarProduto(@Produto.id)">
-                                Adicionar - SEM
-                            </a>
-
-                            <a id="acoes" href="javascript:apagarProduto(@Produto.id)">
+                        <td>  
+                            <a id="acoes" href="javascript:apagarProduto(@Produto.id_Produto)">
                                 Remover
                             </a>
                         </td>
@@ -57,11 +53,11 @@
         <script>
             function apagarProduto(id) {
                 if (confirm('Deseja remover o produto do carrinho?'))
-                    location.href = '../Carrinho_Produto/Remover?id=' + id;
+                    location.href = '../Carrinho/DeleteProduto?id_Produto=' + id;
             }
         </script>
 
-        <p>Valor total dos Produtos... @valorTotal.ToString("C")</p>
+        <p style="text-align:right; padding-top:10px;">Valor total dos Produtos... @valorTotal.ToString("C")</p>
 
         <a asp-controller="" asp-action="">Finalizar Comprar...</a>
 

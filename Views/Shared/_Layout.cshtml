@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/css/estilo.css">
     <link href="~/css/form.css" rel="stylesheet" />
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
 
@@ -53,8 +53,9 @@
                     @if (ViewBag.Admin)
                     {
                         <li><a asp-area="" asp-controller="Produto" asp-action="Create">Novo</a></li>
+                        <li><a asp-area="" asp-controller="Produto" asp-action="Index">Consulta</a></li>
                     }
-                    <li><a asp-area="" asp-controller="Produto" asp-action="Index">Consulta</a></li>
+
                     <li><a asp-area="" asp-controller="Carrinho" asp-action="Index">Catalógo</a></li>
 
                 </ul>
@@ -66,8 +67,9 @@
                     @if (ViewBag.Admin)
                     {
                         <li><a asp-area="" asp-controller="Projeto" asp-action="Create">Novo</a></li>
+                        <li><a asp-area="" asp-controller="Projeto" asp-action="Index">Consulta</a></li>
                     }
-                    <li><a asp-area="" asp-controller="Projeto" asp-action="Index">Consulta</a></li>
+                    <li><a asp-area="" asp-controller="Projeto" asp-action="IndexProjeto">Catalógo</a></li>
 
                 </ul>
             </li>
@@ -81,8 +83,8 @@
                     }
                     @if (ViewBag.logado)
                     {
-                        <li><a href="Cliente/Edit?id=@ViewBag.IdCliente">Dados Pessoais</a></li>
-                        <li><a href="Endereco/EditCliente?idCliente=@ViewBag.IdCliente">Endereço</a></li>
+                        <li><a href="../Cliente/Edit?id=@ViewBag.IdCliente">Dados Pessoais</a></li>
+                        <li><a href="../Endereco/EditCliente?idCliente=@ViewBag.IdCliente">Endereço</a></li>
                     }
                         <li><a asp-area="" asp-controller="Cliente" asp-action="Create">Cadastrar</a></li>
                     
