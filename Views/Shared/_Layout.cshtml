@@ -84,10 +84,8 @@
                         <li><a href="Cliente/Edit?id=@ViewBag.IdCliente">Dados Pessoais</a></li>
                         <li><a href="Endereco/EditCliente?idCliente=@ViewBag.IdCliente">Endereço</a></li>
                     }
-                    else
-                    {
                         <li><a asp-area="" asp-controller="Cliente" asp-action="Create">Cadastrar</a></li>
-                    }
+                    
                 </ul>
             </li>
             <li><a asp-area="" asp-controller="Sobre" asp-action="Index">Sobre</a></li>

@@ -10,7 +10,7 @@ namespace EletroStar.DAO
     {
         public static SqlConnection GetConexao()
         {
-            string strCon = "Data Source=localhost\\SQL2014;Initial Catalog=Portal;integrated security=true";
+            string strCon = "Data Source=localhost;Initial Catalog=Portal;integrated security=true";
             SqlConnection connection = new SqlConnection(strCon);
             connection.Open();
             return connection;
