@@ -56,9 +56,10 @@
                 <span asp-validation-for="cidade" class="text-danger"></span>
                 <br />
 
-                <label for="id_EstadoCivil" class="control-label">Estado</label>
-                <select id="uf" asp-for="id_UF" asp-items="ViewBag.Estados" class="form-control"> </select>
+                <label for="id_Estado" class="control-label">Estado</label><br />
+                <select id="comboBox" asp-for="id_UF" asp-items="ViewBag.Estados" class="form-control"> </select>
                 <span asp-validation-for="id_UF" class="text-danger"></span>
+                <br />
                 <br />
 
                 <input type="submit" value="Salvar dados" />
@@ -85,7 +86,7 @@
                     cache: false,
                     data: { "uf": resposta.uf },
                     success: function (id) {
-                        $("#uf").val(id);
+                        $("#comboBox").val(id);
                     }
                 });
                 $("#numero").focus();

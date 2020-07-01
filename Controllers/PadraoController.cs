@@ -22,10 +22,11 @@ namespace EletroStar.Controllers
             if ((name == "Cliente" && action == "Create") ||
                (name == "Projeto" && action == "Index") ||
                (name == "Vendas" && action == "Index") ||
-               (name == "Produto" && action == "Index"))
+               (name == "Produto" && action == "Index") ||
+               (name == "Cliente" && action == "Salvar"))
             {
-                ViewBag.Logado = false;
-                ViewBag.Admin = false;
+                ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
+                ViewBag.Admin = HelperController.VerificaUserAdmin(HttpContext.Session);
                 base.OnActionExecuting(context);
             }
             else
@@ -74,6 +75,8 @@ namespace EletroStar.Controllers
         {
             try
             {
+                ModelState.Clear();
+
                 ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
                 ViewBag.Admin = HelperController.VerificaUserAdmin(HttpContext.Session);
                 ViewBag.IdCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
@@ -91,7 +94,13 @@ namespace EletroStar.Controllers
                         DAO.Insert(model);
                     else
                         DAO.Update(model);
-                    return RedirectToAction("index");
+
+                    string controller = this.ControllerContext.RouteData.Values["controller"].ToString();
+
+                    if(controller == "Cliente" || controller == "Endereco")
+                        return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception erro)

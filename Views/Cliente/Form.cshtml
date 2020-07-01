@@ -54,6 +54,14 @@
                 <span asp-validation-for="nome" class="text-danger"></span>
                 <br />
 
+                @if (ViewBag.Admin)
+                {
+                    <input type="checkbox" id="admin" name="admin" value="@Model.admin">
+                    <label for="horns">Administrador...</label>
+                    <br />
+                    <br />
+                }
+
                 <label for="cpf" class="control-label">CPF</label>
                 <input type="text" Name="cpf" value="@Model.cpf" class="form-control" required onkeypress="mascara(this, '###.###.###-##')" maxlength="14" />
                 <span asp-validation-for="cpf" class="text-danger"></span>

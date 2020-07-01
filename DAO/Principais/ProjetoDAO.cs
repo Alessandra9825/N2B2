@@ -40,8 +40,6 @@ namespace EletroStar.DAO.Principais
 
         public List<ProjetoViewModel> ListagemComFiltro(string nome)
         {
-
-
             var tabela = HelperDAO.ExecutaFuncSelect("dbo.func_consultarProjeto", nome);
             var lista = new List<ProjetoViewModel>();
 
@@ -51,6 +49,51 @@ namespace EletroStar.DAO.Principais
                 lista.Add(MontaModel(registro));
 
             return lista;
+        }
+
+        public void Insert(ProjetoViewModel model, List<int> idProdutos)
+        {
+            using (var transacao = new System.Transactions.TransactionScope())
+            {
+                ProjetoDAO projetoDAO = new ProjetoDAO();
+                projetoDAO.Insert(model);                
+
+                var p = new SqlParameter[2];
+                p[0] = new SqlParameter("@id_Projeto", model.id);
+                p[1] = new SqlParameter("@id_Produto", 0);
+
+
+                foreach (int id in idProdutos)
+                {
+                    p[1].Value = id;
+
+                    HelperDAO.ExecutaProc("spInsert_ProjetoProduto", p);
+                }                
+                transacao.Complete();
+            }
+        }
+
+        public void Update(ProjetoViewModel model, List<int> idProdutos)
+        {
+            using (var transacao = new System.Transactions.TransactionScope())
+            {
+                ProjetoDAO projetoDAO = new ProjetoDAO();
+                projetoDAO.Update(model);
+
+                HelperDAO.ExecutaProc("spDelete_LimpaProjetoProduto", new SqlParameter[] { new SqlParameter("@id_Projeto", model.id) });
+
+                var p = new SqlParameter[2];
+                p[0] = new SqlParameter("@id_Projeto", model.id);
+                p[1] = new SqlParameter("@id_Produto", 0);
+
+                foreach (int id in idProdutos)
+                {
+                    p[1].Value = id;
+
+                    HelperDAO.ExecutaProc("spInsert_ProjetoProduto", p);
+                }
+                transacao.Complete();
+            }
         }
     }
 }

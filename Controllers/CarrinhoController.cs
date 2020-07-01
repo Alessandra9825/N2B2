@@ -34,7 +34,7 @@ namespace EletroStar.Controllers
 
             CarrinhoDAO dao = new CarrinhoDAO();
 
-            int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+            int idCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));            
 
             var listaProdutos = dao.Listagem(idCliente);            
 

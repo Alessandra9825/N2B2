@@ -16,6 +16,8 @@
     }
     else
     {
+         double valorTotal = 0; 
+
         <div>
             <h2>Lista de Produtos</h2><br>
             <table class="table table-responsive" id="Tabela">
@@ -44,9 +46,11 @@
                         <td>@Produto.nome.ToUpper()</td>
                         <td>@Produto.descricao.ToUpper()</td>
                         <td>@Produto.quantidade</td>
-                        <td>@((Produto.quantidade * Produto.valor))</td>
+                        <td>@((Produto.quantidade * Produto.valor).ToString("C"))</td>
                         <td><img src="data:image/jpeg;base64,@Produto.ImagemEmBase64" style="width:100px; height:100px;"></td>
-                    </tr>                        
+                    </tr>
+
+                     valorTotal += (Produto.quantidade * Produto.valor); 
                 }
             </table>
         </div>
@@ -56,6 +60,10 @@
                     location.href = '../Carrinho_Produto/Remover?id=' + id;
             }
         </script>
+
+        <p>Valor total dos Produtos... @valorTotal.ToString("C")</p>
+
+        <a asp-controller="" asp-action="">Finalizar Comprar...</a>
 
         <a asp-area="" asp-controller="Comprar" asp-action="Index">Adicionar outro produto</a>
     }

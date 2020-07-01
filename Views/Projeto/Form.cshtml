@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form action="Salvar" method="post" enctype="multipart/form-data">
+        <form action="SalvarProjeto" method="post" enctype="multipart/form-data">
             <div class="formulario">
                 <input type="hidden" Name="operacao" value="@ViewBag.operacao" />
                 <h2 style="text-align:left; padding-left: 60px; padding-bottom:10px;">Cadastrar Projeto</h2><br />
@@ -39,7 +39,11 @@
                 <input type="text" Name="link" value="@Model.link" class="form-control" />
                 <span asp-validation-for="link" class="text-danger"></span>
                 <br />
-               
+
+                <label id="estCivil" for="id_Projeto" class="control-label">Adicionar Produtos</label><br />
+                <select id="comboBox2" name="IdProdutos" asp-items="ViewBag.Produtos" class="form-control" multiple="true"> </select><br />                
+                <br />
+
                 <input id="botao" type="submit" value="Salvar dados" />
                 <span class="text-danger">@ViewBag.Erro</span>
             </div>
