@@ -14,39 +14,44 @@
 
                 @if (ViewBag.operacao == "I")
                 {
-                    <h2 style="text-align:left; padding-left:150px; padding-bottom:10px;">Login</h2><br />
+                <h2 style="text-align:left; padding-left:150px; padding-bottom:10px;">Login</h2><br />
 
-                    <label for="email" class="control-label">E-mail</label>
-                    <input type="email" Name="email" value="@Model.email" class="form-control" />
-                    <span asp-validation-for="email" class="text-danger"></span>
-                    <br />
+                <label for="email" class="control-label">E-mail</label>
+                <input type="email" Name="email" value="@Model.email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+                <br />
 
-                    <label for="email" class="control-label">Confirmação de E-mail</label>
-                    <input type="text" Name="confemail" value="@ViewBag.confemail" class="form-control" />
-                    <br />
+                <label for="email" class="control-label">Confirmação de E-mail</label>
+                <input type="text" Name="confemail" value="@ViewBag.confemail" class="form-control" />
+                <br />
 
-                    <label for="senha" class="control-label">Senha</label>
-                    <input type="password" Name="senha" value="@Model.senha" class="form-control" />
-                    <span asp-validation-for="senha" class="text-danger"></span>
-                    <br />
+                <label for="senha" class="control-label">Senha</label>
+                <input type="password" Name="senha" value="@Model.senha" class="form-control" />
+                <span asp-validation-for="senha" class="text-danger"></span>
+                <br />
 
-                    <label for="senha" class="control-label">Confirmação de Senha</label>
-                    <input type="password" Name="confsenha" value="@ViewBag.confsenha" class="form-control" />
-                    <br />
+                <label for="senha" class="control-label">Confirmação de Senha</label>
+                <input type="password" Name="confsenha" value="@ViewBag.confsenha" class="form-control" />
+                <br />
+                }
+                else
+                {
+                <input type="hidden" Name="email" value="@Model.email" class="form-control" />
+                <input type="hidden" Name="senha" value="@Model.senha" class="form-control" />
                 }
 
 
                 <h2 style="text-align:left; padding-left:55px; padding-bottom:10px;">Informações Gerais</h2><br />
                 @if (ViewBag.operacao == "I")
                 {
-                    <input type="hidden" Name="id" value="@Model.id" class="form-control" />
+                <input type="hidden" Name="id" value="@Model.id" class="form-control" />
                 }
                 else
                 {
-                    <label for="nome" class="control-label">Id Cadastrado</label>
-                    <input type="number" Name="id" value="@Model.id" class="form-control" readonly />
-                    <span asp-validation-for="id" class="text-danger"></span>
-                    <br />
+                <label for="nome" class="control-label">Id Cadastrado</label>
+                <input type="number" Name="id" value="@Model.id" class="form-control" readonly />
+                <span asp-validation-for="id" class="text-danger"></span>
+                <br />
                 }
 
                 <label for="nome" class="control-label">Nome completo</label>
@@ -56,10 +61,10 @@
 
                 @if (ViewBag.Admin)
                 {
-                    <label id="genero" for="genero" class="control-label">Controle de Acesso</label><br />
-                    <select id="comboBox" asp-for="admin" asp-items="ViewBag.administrador" class="form-control"> </select>
-                    <span asp-validation-for="admin" class="text-danger"></span><br />
-                    <br />
+                <label id="genero" for="genero" class="control-label">Controle de Acesso</label><br />
+                <select id="comboBox" asp-for="admin" asp-items="ViewBag.administrador" class="form-control"> </select>
+                <span asp-validation-for="admin" class="text-danger"></span><br />
+                <br />
                 }
 
                 <label for="cpf" class="control-label">CPF</label>

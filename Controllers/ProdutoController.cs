@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using EletroStar.DAO.Principais;
 using EletroStar.DAO.Secundarias;
 using EletroStar.Models;
+using EletroStar.Models.Principais;
+using EletroStar.Models.Secundarias;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,8 +29,45 @@ namespace EletroStar.Controllers
             else
                 lista = ((DAO as ProdutoDAO).ListagemComFiltro(nome));
 
+            FabricanteDAO fab = new FabricanteDAO();
+            var fabricantes = fab.Listagem();
+
+            CategoriaDAO cat = new CategoriaDAO();
+            var categorias = cat.Listagem();
+
+            foreach(ProdutoViewModel produto in lista)
+            {
+                produto.Fabricante = fabricantes.Find(c => c.id == produto.id_Fabricante).nome;
+                produto.Categoria = categorias.Find(c => c.id == produto.id_Categoria).descricao;
+            }            
+
             return PartialView("pvProduto", lista);
         }
+
+
+        public override IActionResult Index()
+        {
+            ViewBag.Logado = HelperController.VerificaUserLogado(HttpContext.Session);
+            ViewBag.Admin = HelperController.VerificaUserAdmin(HttpContext.Session);
+            ViewBag.IdCliente = Convert.ToInt32(HelperController.IdCliente(HttpContext.Session));
+
+            var lista = DAO.Listagem();
+
+            FabricanteDAO fab = new FabricanteDAO();
+            var fabricantes = fab.Listagem();
+
+            CategoriaDAO cat = new CategoriaDAO();
+            var categorias = cat.Listagem();
+
+            foreach (ProdutoViewModel produto in lista)
+            {
+                produto.Fabricante = fabricantes.Find(c => c.id == produto.id_Fabricante).nome;
+                produto.Categoria = categorias.Find(c => c.id == produto.id_Categoria).descricao;
+            }
+
+            return View(lista);
+        }
+
 
         /// <summary>
         /// Converte a imagem recebida no form em um vetor de bytes

@@ -240,7 +240,7 @@ footer {
 
 #pesquisar {
     margin-top: 90px;
-    margin-left: 45%;
+    margin-left: auto;
     padding: 25px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-stretch: condensed;

@@ -24,7 +24,8 @@ namespace EletroStar.Controllers
             string name = this.ControllerContext.RouteData.Values["controller"].ToString();
             string action = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            if (name == "Carrinho" && action == "Index")
+            if (name == "Carrinho" && action == "Index" ||
+                name == "Carrinho" && action == "AtualizaGridIndexP")
                 base.OnActionExecuting(context);
             else
             {

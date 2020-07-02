@@ -13,6 +13,8 @@ namespace EletroStar.Models
         public double valor { get; set; }
         public int id_Fabricante { get; set; }
         public int id_Categoria { get; set; }
+        public string Fabricante { get; set; }
+        public string Categoria { get; set; }
         public IFormFile Imagem { get; set; }
 
         public byte[] ImagemEmByte { get; set; }

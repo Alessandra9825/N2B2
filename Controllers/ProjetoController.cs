@@ -55,7 +55,7 @@ namespace EletroStar.Controllers
             listaProdutos.Add(new SelectListItem("Selecione seus Produtos...", "0"));
 
             foreach (var produto in produtos)
-                listaProdutos.Add(new SelectListItem(produto.descricao, produto.id.ToString()));
+                listaProdutos.Add(new SelectListItem(produto.nome, produto.id.ToString()));
 
             ViewBag.Produtos = listaProdutos;
         }

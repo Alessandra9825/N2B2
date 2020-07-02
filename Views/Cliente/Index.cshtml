@@ -6,12 +6,22 @@
 <link rel="stylesheet" href="~/css/listagem.css">
 
 <div id="pesquisar">
-    <form>
-        <label for="cpf">Consultar CPF</label>
-        <input type="text" Name="cpf" id="cpf" class="form-control" />
-        <input id="botao" type="button" value="Pesquisar" onclick="atualizaGrid()" />
-    </form>
+    <fieldset>
+        <legend>Filtro</legend>
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-4">
+                <form>
+                    <label for="cpf">Consultar CPF</label>
+                    <input type="text" Name="cpf" id="cpf" class="form-control" />
+                    <input id="botao" type="button" value="Pesquisar" onclick="atualizaGrid()" />
+                </form>
+            </div>
+        </div>
+    </fieldset>
 </div>
+
 <div id="conteudoGrid">
     @{Html.RenderPartial("pvCliente", Model);}
 </div>

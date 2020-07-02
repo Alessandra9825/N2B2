@@ -54,11 +54,12 @@ namespace EletroStar.Controllers
             if (string.IsNullOrEmpty(model.cpf))
                 ModelState.AddModelError("CPF", "Preencha o CPF (ex: 123.456.789-12).");
 
+
             if (string.IsNullOrEmpty(model.nome))
                 ModelState.AddModelError("nome", "Preencha o nome completo.");
-            if (string.IsNullOrEmpty(model.email))
+            if (operacao == "I" && string.IsNullOrEmpty(model.email))
                 ModelState.AddModelError("email", "Preencha o email.");
-            if (string.IsNullOrEmpty(model.senha))
+            if (operacao == "I" && string.IsNullOrEmpty(model.senha))
                 ModelState.AddModelError("senha", "Preencha a senha");
             if (string.IsNullOrEmpty(model.tel_celular))
                 ModelState.AddModelError("tel_celular", "Preencha o numero de celular.");
@@ -73,10 +74,10 @@ namespace EletroStar.Controllers
             if (model.nascimento >= DateTime.Today)
                 ModelState.AddModelError("nascimento", "Preencha a data de nascimento corretamente");
 
-            if (model.senha != confsenha)
+            if (operacao == "I" && model.senha != confsenha)
                 ModelState.AddModelError("senha", "Senhas não conferem!");
 
-            if (model.email != confemail)
+            if (operacao == "I" && model.email != confemail)
                 ModelState.AddModelError("email", "E-mails não conferem!");
 
             //Imagem será obrigatio apenas na inclusão. 
@@ -115,6 +116,8 @@ namespace EletroStar.Controllers
 
                 if (admin == "A")
                     model.admin = true;
+                else if (admin == "0")
+                    ModelState.AddModelError("admin", "Selecione um controle de acesso!");
 
                 ValidaDados(model, operacao, confsenha, confemail);
                 if (ModelState.IsValid == false)
@@ -152,7 +155,8 @@ namespace EletroStar.Controllers
             //utiliza os dados do pai
             base.PreencheDadosParaView(operacao, model);
 
-            model.nascimento = DateTime.Now;
+            if(operacao != "A")
+                model.nascimento = DateTime.Now;
 
             EstadoCivilDAO dao = new EstadoCivilDAO();
             var EstadosCivis = dao.Listagem();
